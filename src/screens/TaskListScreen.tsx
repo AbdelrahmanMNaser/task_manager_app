@@ -62,13 +62,6 @@ export const TaskListScreen = ({ navigation }: Props) => {
           />
         )}
       />
-      <View className="p-4 bg-surface border-t border-gray-200">
-        <Button
-          title="Add New Task"
-          variant="primary"
-          onPress={() => navigation.navigate("TaskForm", {})}
-        />
-      </View>
     </View>
   );
 };
