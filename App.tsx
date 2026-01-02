@@ -8,15 +8,10 @@ import { TaskProvider } from "./context/TaskContext";
 // Screens
 import { DashboardScreen } from "./src/screens/DashboardScreen";
 import { TaskListScreen } from "./src/screens/TaskListScreen";
+import { TaskDetailsScreen } from "./src/screens/TaskDetailsScreen";
 
 // Placeholder screens - will be replaced with actual screens
 import { View, Text } from "react-native";
-
-const TaskDetailsScreen = () => (
-  <View className="flex-1 items-center justify-center bg-background">
-    <Text className="text-textPrimary text-xl">Task Details Screen</Text>
-  </View>
-);
 
 const TaskFormScreen = () => (
   <View className="flex-1 items-center justify-center bg-background">
