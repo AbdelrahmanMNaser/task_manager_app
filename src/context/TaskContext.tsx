@@ -1,12 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-// Task interface as per requirements
-export interface Task {
-  id: string;
-  title: string;
-  description: string;
-  isCompleted: boolean;
-}
+import { Task } from "../types";
 
 // Context type with all CRUD operations
 interface TaskContextType {
