@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { SummaryCard } from "./SummaryCard";
-import { useTasks } from "../../../context/TaskContext";
+import { useTasks } from "../../context/TaskContext";
 
 export const StatsOverview = () => {
   const { tasks } = useTasks();

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
-import { useTasks } from "../../context/TaskContext";
+import { useTasks } from "../context/TaskContext";
 import { RootStackParamList } from "../../App";
 import { showConfirm } from "../utils/alert";
 

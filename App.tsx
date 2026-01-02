@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
-import { TaskProvider } from "./context/TaskContext";
+import { TaskProvider } from "./src/context/TaskContext";
 
 // Screens
 import { DashboardScreen } from "./src/screens/DashboardScreen";

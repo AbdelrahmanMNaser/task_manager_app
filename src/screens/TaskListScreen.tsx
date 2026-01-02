@@ -3,7 +3,7 @@ import { View, Text, FlatList } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { TaskCard, Button } from "../components/Shared";
-import { useTasks } from "../../context/TaskContext";
+import { useTasks } from "../context/TaskContext";
 import { RootStackParamList } from "../../App";
 import { showConfirm } from "../utils/alert";
 

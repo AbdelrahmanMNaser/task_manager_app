@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { PieChart } from "react-native-gifted-charts";
-import { useTasks } from "../../../context/TaskContext";
+import { useTasks } from "../../context/TaskContext";
 import { Card } from "../Shared/Card";
 
 export const TaskCharts = () => {
