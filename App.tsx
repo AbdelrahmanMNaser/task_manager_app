@@ -5,14 +5,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TaskProvider } from "./context/TaskContext";
 
+// Screens
+import { DashboardScreen } from "./src/screens/DashboardScreen";
+
 // Placeholder screens - will be replaced with actual screens
 import { View, Text } from "react-native";
-
-const DashboardScreen = () => (
-  <View className="flex-1 items-center justify-center bg-background">
-    <Text className="text-textPrimary text-xl">Dashboard Screen</Text>
-  </View>
-);
 
 const TaskListScreen = () => (
   <View className="flex-1 items-center justify-center bg-background">
