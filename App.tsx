@@ -3,21 +3,14 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 import { TaskProvider } from "./context/TaskContext";
 
 // Screens
 import { DashboardScreen } from "./src/screens/DashboardScreen";
 import { TaskListScreen } from "./src/screens/TaskListScreen";
 import { TaskDetailsScreen } from "./src/screens/TaskDetailsScreen";
-
-// Placeholder screens - will be replaced with actual screens
-import { View, Text } from "react-native";
-
-const TaskFormScreen = () => (
-  <View className="flex-1 items-center justify-center bg-background">
-    <Text className="text-textPrimary text-xl">Task Form Screen</Text>
-  </View>
-);
+import { TaskFormScreen } from "./src/screens/TaskFormScreen";
 
 export type RootStackParamList = {
   Dashboard: undefined;
@@ -64,6 +57,7 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </TaskProvider>
+      <Toast />
     </SafeAreaProvider>
   );
 }

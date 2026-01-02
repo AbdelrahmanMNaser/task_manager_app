@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import { View, Text, FlatList, Alert } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import Toast from "react-native-toast-message";
 import { TaskCard, Button } from "../components/Shared";
 import { useTasks } from "../../context/TaskContext";
 import { RootStackParamList } from "../../App";
@@ -16,7 +17,14 @@ export const TaskListScreen = ({ navigation }: Props) => {
       {
         text: "Delete",
         style: "destructive",
-        onPress: () => deleteTask(id),
+        onPress: () => {
+          deleteTask(id);
+          Toast.show({
+            type: "success",
+            text1: "Task Deleted",
+            text2: `"${title}" has been deleted`,
+          });
+        },
       },
     ]);
   };
