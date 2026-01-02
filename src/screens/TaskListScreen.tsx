@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, FlatList, Alert } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { TaskCard, Button } from "../components/Shared";
 import { useTasks } from "../../context/TaskContext";
 import { RootStackParamList } from "../../App";
+import { showConfirm } from "../utils/alert";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TaskList">;
 
@@ -12,21 +13,19 @@ export const TaskListScreen = ({ navigation }: Props) => {
   const { tasks, toggleTaskCompletion, deleteTask } = useTasks();
 
   const handleDelete = (id: string, title: string) => {
-    Alert.alert("Delete Task", `Are you sure you want to delete "${title}"?`, [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: () => {
-          deleteTask(id);
-          Toast.show({
-            type: "success",
-            text1: "Task Deleted",
-            text2: `"${title}" has been deleted`,
-          });
-        },
+    showConfirm(
+      "Delete Task",
+      `Are you sure you want to delete "${title}"?`,
+      () => {
+        deleteTask(id);
+        Toast.show({
+          type: "success",
+          text1: "Task Deleted",
+          text2: `"${title}" has been deleted`,
+        });
       },
-    ]);
+      "Delete"
+    );
   };
 
   const renderEmptyState = () => (

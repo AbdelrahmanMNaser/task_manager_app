@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, ScrollView, Alert, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { useTasks } from "../../context/TaskContext";
 import { RootStackParamList } from "../../App";
+import { showConfirm } from "../utils/alert";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TaskDetails">;
 
@@ -14,26 +15,20 @@ export const TaskDetailsScreen = ({ navigation, route }: Props) => {
   const task = getTaskById(taskId);
 
   const handleDelete = () => {
-    Alert.alert(
+    showConfirm(
       "Delete Task",
       `Are you sure you want to delete "${task?.title}"?`,
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: () => {
-            const title = task?.title;
-            deleteTask(taskId);
-            navigation.goBack();
-            Toast.show({
-              type: "success",
-              text1: "Task Deleted",
-              text2: `"${title}" has been deleted`,
-            });
-          },
-        },
-      ]
+      () => {
+        const title = task?.title;
+        deleteTask(taskId);
+        navigation.goBack();
+        Toast.show({
+          type: "success",
+          text1: "Task Deleted",
+          text2: `"${title}" has been deleted`,
+        });
+      },
+      "Delete"
     );
   };
 
