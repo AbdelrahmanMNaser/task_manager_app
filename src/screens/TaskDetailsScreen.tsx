@@ -41,12 +41,26 @@ export const TaskDetailsScreen = ({
     );
   };
 
-  // Set header icons
+  // Set header options
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: false,
+      title: task?.title || "Task Details",
+      headerStyle: { backgroundColor: "#f8fafc" },
+      headerShadowVisible: false,
+      headerRight: () => (
+        <View className="flex-row gap-4">
+          <TouchableOpacity
+            onPress={() => navigation.navigate("TaskForm", { taskId })}
+          >
+            <Text className="text-xl">✏️</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleDelete}>
+            <Text className="text-xl">🗑️</Text>
+          </TouchableOpacity>
+        </View>
+      ),
     });
-  }, [navigation]);
+  }, [navigation, task, taskId]);
 
   if (!task) {
     return (
@@ -57,74 +71,51 @@ export const TaskDetailsScreen = ({
   }
 
   return (
-    <View className="flex-1 bg-background">
-      {/* Header Section */}
+    <ScrollView className="flex-1 bg-background">
+      {/* Dynamic Status Banner */}
       <View
-        className={`px-4 pt-12 pb-6 ${
+        className={`px-4 py-3 flex-row items-center justify-between ${
           task.isCompleted ? "bg-success/10" : "bg-secondary/10"
         }`}
       >
-        <View className="flex-row items-start justify-between mb-4">
-          <View className="flex-row items-start flex-1 mr-4">
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              className="p-2 -ml-2 mr-2"
-            >
-              <Text className="text-2xl">←</Text>
-            </TouchableOpacity>
-            <View className="flex-1">
-              <Text className="text-textPrimary text-2xl font-bold mb-2">
-                {task.title}
-              </Text>
-              <TouchableOpacity
-                onPress={() => toggleTaskCompletion(taskId)}
-                className="self-start"
-              >
-                <View
-                  className={`flex-row items-center gap-2 px-3 py-1 rounded-full ${
-                    task.isCompleted ? "bg-success" : "bg-secondary"
-                  }`}
-                >
-                  <View
-                    className={`w-4 h-4 rounded-full border-2 border-white items-center justify-center ${
-                      task.isCompleted ? "bg-white" : "bg-transparent"
-                    }`}
-                  >
-                    {task.isCompleted && (
-                      <Text className="text-success text-xs font-bold">✓</Text>
-                    )}
-                  </View>
-                  <Text className="text-white text-sm font-medium">
-                    {task.isCompleted ? "Completed" : "Pending"}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+        <TouchableOpacity
+          onPress={() => toggleTaskCompletion(taskId)}
+          className="flex-row items-center gap-2"
+        >
+          <View
+            className={`w-5 h-5 rounded-full border-2 items-center justify-center ${
+              task.isCompleted
+                ? "bg-success border-success"
+                : "border-secondary"
+            }`}
+          >
+            {task.isCompleted && (
+              <Text className="text-white text-xs font-bold">✓</Text>
+            )}
           </View>
-          <View className="flex-row gap-4 pt-2">
-            <TouchableOpacity
-              onPress={() => navigation.navigate("TaskForm", { taskId })}
-            >
-              <Text className="text-xl">✏️</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleDelete}>
-              <Text className="text-xl">🗑️</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+          <Text
+            className={`text-sm font-semibold ${
+              task.isCompleted ? "text-success" : "text-secondary"
+            }`}
+          >
+            {task.isCompleted ? "Completed" : "Mark as Done"}
+          </Text>
+        </TouchableOpacity>
+        <Text className="text-textSecondary text-xs">
+          Status: {task.isCompleted ? "Done" : "In Progress"}
+        </Text>
       </View>
 
-      {/* Content Section */}
-      <ScrollView className="flex-1 p-4">
-        <Text className="text-textPrimary text-base font-semibold mb-3">
+      <View className="p-4">
+        <Text className="text-textPrimary text-base font-semibold mb-2">
           Description
         </Text>
-        <View className="bg-surface rounded-xl p-4 min-h-[120px]">
+        <View className="bg-surface border border-gray-300 rounded-lg p-3 min-h-[150px]">
           <Text className="text-textPrimary text-base leading-6">
             {task.description || "No description provided."}
           </Text>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
