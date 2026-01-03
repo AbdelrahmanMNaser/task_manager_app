@@ -8,6 +8,14 @@ import { Task } from "../types/task";
 export const useTaskManager = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  const getTaskById = (id: string): Task | undefined => {
+    return tasks.find((task) => task.id === id);
+  };
+
+  const getTasks = (): Task[] => {
+    return tasks;
+  };
+
   const addTask = (title: string, description: string) => {
     const newTask: Task = {
       id: Date.now().toString(),
@@ -38,21 +46,16 @@ export const useTaskManager = () => {
     );
   };
 
-  const getTaskById = (id: string): Task | undefined => {
-    return tasks.find((task) => task.id === id);
-  };
 
-  const getTasks = (): Task[] => {
-    return tasks;
-  };
 
   return {
-    tasks,
+    tasks,    
+    getTaskById,
+    getTasks,
     addTask,
     updateTask,
     deleteTask,
     toggleTaskCompletion,
-    getTaskById,
-    getTasks,
+
   };
 };
