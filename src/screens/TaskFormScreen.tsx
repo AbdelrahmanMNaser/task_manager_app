@@ -6,7 +6,7 @@ import { FormInput } from "../components/Shared/FormInput";
 import { Button } from "../components/Shared/Button";
 import { RootStackParamList } from "../../App";
 import { Task } from "../types/task";
-import { validateTaskForm } from "../utils/taskFormValidation";
+import { validateTaskForm } from "../utils/validate";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TaskForm"> & {
   getTaskById: (id: string) => Task | undefined;
