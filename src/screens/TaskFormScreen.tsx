@@ -6,6 +6,7 @@ import { FormInput } from "../components/Shared/FormInput";
 import { Button } from "../components/Shared/Button";
 import { RootStackParamList } from "../../App";
 import { Task } from "../types/task";
+import { validateTaskForm } from "../utils/taskFormValidation";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TaskForm"> & {
   getTaskById: (id: string) => Task | undefined;
@@ -38,30 +39,17 @@ export const TaskFormScreen = ({
     });
   }, [navigation, isEditing]);
 
-  const validateForm = () => {
-    let isValid = true;
-
-    if (!title.trim()) {
-      setTitleError("Title is required");
-      isValid = false;
-    } else {
-      setTitleError("");
-    }
-
-    if (!description.trim()) {
-      setDescriptionError("Description is required");
-      isValid = false;
-    } else {
-      setDescriptionError("");
-    }
-
-    return isValid;
-  };
-
   const handleSave = () => {
-    if (!validateForm()) {
+    const { isValid, errors } = validateTaskForm({ title, description });
+
+    if (!isValid) {
+      setTitleError(errors.titleError);
+      setDescriptionError(errors.descriptionError);
       return;
     }
+
+    setTitleError("");
+    setDescriptionError("");
 
     if (isEditing && taskId) {
       updateTask(taskId, title.trim(), description.trim());

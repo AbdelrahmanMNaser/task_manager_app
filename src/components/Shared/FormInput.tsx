@@ -17,7 +17,7 @@ export const FormInput = ({ label, error, ...props }: FormInputProps) => {
         placeholderTextColor="#94a3b8"
         {...props}
       />
-      {error && <Text className="text-danger text-xs mt-1">{error}</Text>}
+      {error ? <Text className="text-danger text-xs mt-1">{error}</Text> : null}
     </View>
   );
 };
