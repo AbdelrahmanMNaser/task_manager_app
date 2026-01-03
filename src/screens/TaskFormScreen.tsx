@@ -4,14 +4,23 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { FormInput } from "../components/Shared/FormInput";
 import { Button } from "../components/Shared/Button";
-import { useTasks } from "../context/TaskContext";
 import { RootStackParamList } from "../../App";
+import { Task } from "../types/task";
 
-type Props = NativeStackScreenProps<RootStackParamList, "TaskForm">;
+type Props = NativeStackScreenProps<RootStackParamList, "TaskForm"> & {
+  getTaskById: (id: string) => Task | undefined;
+  addTask: (title: string, description: string) => void;
+  updateTask: (id: string, title: string, description: string) => void;
+};
 
-export const TaskFormScreen = ({ navigation, route }: Props) => {
+export const TaskFormScreen = ({
+  navigation,
+  route,
+  getTaskById,
+  addTask,
+  updateTask,
+}: Props) => {
   const { taskId } = route.params;
-  const { addTask, updateTask, getTaskById } = useTasks();
 
   const existingTask = taskId ? getTaskById(taskId) : null;
   const isEditing = !!existingTask;

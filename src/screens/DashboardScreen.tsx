@@ -5,10 +5,15 @@ import { StatsOverview } from "../components/Dashboard/StatsOverview";
 import { TaskCharts } from "../components/Dashboard/TaskCharts";
 import { Button } from "../components/Shared/Button";
 import { RootStackParamList } from "../../App";
+import { Task } from "../types/task";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Dashboard">;
+type Props = NativeStackScreenProps<RootStackParamList, "Dashboard"> & {
+  getTasks: () => Task[];
+};
 
-export const DashboardScreen = ({ navigation }: Props) => {
+export const DashboardScreen = ({ navigation, getTasks }: Props) => {
+  const tasks = getTasks();
+
   return (
     <ScrollView className="flex-1 bg-background">
       <View className="p-4">
@@ -19,8 +24,8 @@ export const DashboardScreen = ({ navigation }: Props) => {
           Here's an overview of your tasks
         </Text>
 
-        <StatsOverview />
-        <TaskCharts />
+        <StatsOverview tasks={tasks} />
+        <TaskCharts tasks={tasks} />
 
         <View className="flex-row gap-3 mt-6">
           <View className="flex-1">

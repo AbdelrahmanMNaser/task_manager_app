@@ -1,12 +1,14 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { PieChart } from "react-native-gifted-charts";
-import { useTasks } from "../../context/TaskContext";
 import { Card } from "../Shared/Card";
+import { Task } from "../../types/task";
 
-export const TaskCharts = () => {
-  const { tasks } = useTasks();
+interface Props {
+  tasks: Task[];
+}
 
+export const TaskCharts = ({ tasks }: Props) => {
   const completedTasks = tasks.filter((t) => t.isCompleted).length;
   const pendingTasks = tasks.length - completedTasks;
 

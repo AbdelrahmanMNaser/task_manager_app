@@ -4,14 +4,23 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { TaskCard } from "../components/Shared/TaskCard";
 import { Button } from "../components/Shared/Button";
-import { useTasks } from "../context/TaskContext";
 import { RootStackParamList } from "../../App";
 import { showConfirm } from "../utils/alert";
+import { Task } from "../types/task";
 
-type Props = NativeStackScreenProps<RootStackParamList, "TaskList">;
+type Props = NativeStackScreenProps<RootStackParamList, "TaskList"> & {
+  getTasks: () => Task[];
+  toggleTaskCompletion: (id: string) => void;
+  deleteTask: (id: string) => void;
+};
 
-export const TaskListScreen = ({ navigation }: Props) => {
-  const { tasks, toggleTaskCompletion, deleteTask } = useTasks();
+export const TaskListScreen = ({
+  navigation,
+  getTasks,
+  toggleTaskCompletion,
+  deleteTask,
+}: Props) => {
+  const tasks = getTasks();
 
   const handleDelete = (id: string, title: string) => {
     showConfirm(

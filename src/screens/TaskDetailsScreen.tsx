@@ -2,15 +2,24 @@ import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
-import { useTasks } from "../context/TaskContext";
 import { RootStackParamList } from "../../App";
 import { showConfirm } from "../utils/alert";
+import { Task } from "../types/task";
 
-type Props = NativeStackScreenProps<RootStackParamList, "TaskDetails">;
+type Props = NativeStackScreenProps<RootStackParamList, "TaskDetails"> & {
+  getTaskById: (id: string) => Task | undefined;
+  toggleTaskCompletion: (id: string) => void;
+  deleteTask: (id: string) => void;
+};
 
-export const TaskDetailsScreen = ({ navigation, route }: Props) => {
+export const TaskDetailsScreen = ({
+  navigation,
+  route,
+  getTaskById,
+  toggleTaskCompletion,
+  deleteTask,
+}: Props) => {
   const { taskId } = route.params;
-  const { getTaskById, toggleTaskCompletion, deleteTask } = useTasks();
 
   const task = getTaskById(taskId);
 

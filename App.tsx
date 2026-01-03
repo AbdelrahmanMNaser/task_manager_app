@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
-import { TaskProvider } from "./src/context/TaskContext";
+import { useTaskManager } from "./src/hooks/useTaskManager";
 
 // Screens
 import { DashboardScreen } from "./src/screens/DashboardScreen";
@@ -22,41 +22,67 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  const {
+    getTasks,
+    getTaskById,
+    addTask,
+    updateTask,
+    deleteTask,
+    toggleTaskCompletion,
+  } = useTaskManager();
+
   return (
     <SafeAreaProvider>
-      <TaskProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Dashboard"
-            screenOptions={{
-              headerStyle: { backgroundColor: "#f8fafc" },
-              headerTitleStyle: { fontWeight: "bold", color: "#1e293b" },
-              contentStyle: { backgroundColor: "#f8fafc" },
-            }}
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Dashboard"
+          screenOptions={{
+            headerStyle: { backgroundColor: "#f8fafc" },
+            headerTitleStyle: { fontWeight: "bold", color: "#1e293b" },
+            contentStyle: { backgroundColor: "#f8fafc" },
+          }}
+        >
+          <Stack.Screen name="Dashboard" options={{ title: "Dashboard" }}>
+            {(props) => <DashboardScreen {...props} getTasks={getTasks} />}
+          </Stack.Screen>
+
+          <Stack.Screen name="TaskList" options={{ title: "Tasks" }}>
+            {(props) => (
+              <TaskListScreen
+                {...props}
+                getTasks={getTasks}
+                toggleTaskCompletion={toggleTaskCompletion}
+                deleteTask={deleteTask}
+              />
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="TaskDetails" options={{ title: "Task Details" }}>
+            {(props) => (
+              <TaskDetailsScreen
+                {...props}
+                getTaskById={getTaskById}
+                toggleTaskCompletion={toggleTaskCompletion}
+                deleteTask={deleteTask}
+              />
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen
+            name="TaskForm"
+            options={{ title: "Manage Task", presentation: "modal" }}
           >
-            <Stack.Screen
-              name="Dashboard"
-              component={DashboardScreen}
-              options={{ title: "Dashboard" }}
-            />
-            <Stack.Screen
-              name="TaskList"
-              component={TaskListScreen}
-              options={{ title: "Tasks" }}
-            />
-            <Stack.Screen
-              name="TaskDetails"
-              component={TaskDetailsScreen}
-              options={{ title: "Task Details" }}
-            />
-            <Stack.Screen
-              name="TaskForm"
-              component={TaskFormScreen}
-              options={{ title: "Manage Task", presentation: "modal" }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </TaskProvider>
+            {(props) => (
+              <TaskFormScreen
+                {...props}
+                getTaskById={getTaskById}
+                addTask={addTask}
+                updateTask={updateTask}
+              />
+            )}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
       <Toast />
     </SafeAreaProvider>
   );

@@ -1,11 +1,13 @@
 import React from "react";
 import { View } from "react-native";
 import { SummaryCard } from "./SummaryCard";
-import { useTasks } from "../../context/TaskContext";
+import { Task } from "../../types/task";
 
-export const StatsOverview = () => {
-  const { tasks } = useTasks();
+interface Props {
+  tasks: Task[];
+}
 
+export const StatsOverview = ({ tasks }: Props) => {
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((t) => t.isCompleted).length;
   const pendingTasks = totalTasks - completedTasks;
