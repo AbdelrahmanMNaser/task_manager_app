@@ -51,13 +51,15 @@ export const TaskListScreen = ({
 
   return (
     <View className="flex-1 bg-background">
-      <View className="flex-row justify-end px-4 pt-4">
-        <Button
-          title="+ New Task"
-          size="sm"
-          onPress={() => navigation.navigate("TaskForm", {})}
-        />
-      </View>
+      {tasks.length > 0 && (
+        <View className="flex-row justify-end px-4 pt-4">
+          <Button
+            title="+ New Task"
+            size="sm"
+            onPress={() => navigation.navigate("TaskForm", {})}
+          />
+        </View>
+      )}
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
