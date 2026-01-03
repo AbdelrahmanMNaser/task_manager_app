@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import { useTaskManager } from "./src/hooks/useTaskManager";
+import { MainLayout } from "./src/components/Navigation/MainLayout";
 
 // Screens
 import { DashboardScreen } from "./src/screens/DashboardScreen";
@@ -42,18 +43,24 @@ export default function App() {
             contentStyle: { backgroundColor: "#f8fafc" },
           }}
         >
-          <Stack.Screen name="Dashboard" options={{ title: "Dashboard" }}>
-            {(props) => <DashboardScreen {...props} getTasks={getTasks} />}
+          <Stack.Screen name="Dashboard" options={{ headerShown: false }}>
+            {(props) => (
+              <MainLayout>
+                <DashboardScreen {...props} getTasks={getTasks} />
+              </MainLayout>
+            )}
           </Stack.Screen>
 
-          <Stack.Screen name="TaskList" options={{ title: "Tasks" }}>
+          <Stack.Screen name="TaskList" options={{ headerShown: false }}>
             {(props) => (
-              <TaskListScreen
-                {...props}
-                getTasks={getTasks}
-                toggleTaskCompletion={toggleTaskCompletion}
-                deleteTask={deleteTask}
-              />
+              <MainLayout>
+                <TaskListScreen
+                  {...props}
+                  getTasks={getTasks}
+                  toggleTaskCompletion={toggleTaskCompletion}
+                  deleteTask={deleteTask}
+                />
+              </MainLayout>
             )}
           </Stack.Screen>
 

@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StatsOverview } from "../components/Dashboard/StatsOverview";
 import { TaskCharts } from "../components/Dashboard/TaskCharts";
-import { Button } from "../components/Shared/Button";
+import { RecentTasks } from "../components/Dashboard/RecentTasks";
 import { RootStackParamList } from "../../App";
 import { Task } from "../types/task";
 
@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Dashboard"> & {
   getTasks: () => Task[];
 };
 
-export const DashboardScreen = ({ navigation, getTasks }: Props) => {
+export const DashboardScreen = ({ getTasks }: Props) => {
   const tasks = getTasks();
 
   return (
@@ -25,22 +25,14 @@ export const DashboardScreen = ({ navigation, getTasks }: Props) => {
         </Text>
 
         <StatsOverview tasks={tasks} />
-        <TaskCharts tasks={tasks} />
 
-        <View className="flex-row gap-3 mt-6">
-          <View className="flex-1">
-            <Button
-              title="View Tasks"
-              variant="primary"
-              onPress={() => navigation.navigate("TaskList")}
-            />
+        {/* Responsive layout: side-by-side on desktop, stacked on mobile */}
+        <View className="flex-col md:flex-row gap-4 mt-4">
+          <View className="md:flex-1">
+            <TaskCharts tasks={tasks} />
           </View>
-          <View className="flex-1">
-            <Button
-              title="Add Task"
-              variant="outline"
-              onPress={() => navigation.navigate("TaskForm", {})}
-            />
+          <View className="md:flex-1">
+            <RecentTasks tasks={tasks} />
           </View>
         </View>
       </View>
