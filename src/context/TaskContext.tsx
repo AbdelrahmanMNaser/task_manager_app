@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-import { Task } from "../types";
+import { Task } from "../types/task";
 
 // Context type with all CRUD operations
 interface TaskContextType {

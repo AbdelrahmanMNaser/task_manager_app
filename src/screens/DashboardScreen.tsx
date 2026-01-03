@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StatsOverview, TaskCharts } from "../components/Dashboard";
-import { Button } from "../components/Shared";
+import { StatsOverview } from "../components/Dashboard/StatsOverview";
+import { TaskCharts } from "../components/Dashboard/TaskCharts";
+import { Button } from "../components/Shared/Button";
 import { RootStackParamList } from "../../App";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Dashboard">;

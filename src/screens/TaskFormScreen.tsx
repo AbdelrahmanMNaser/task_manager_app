@@ -2,7 +2,8 @@ import React, { useState, useLayoutEffect } from "react";
 import { View, ScrollView } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
-import { FormInput, Button } from "../components/Shared";
+import { FormInput } from "../components/Shared/FormInput";
+import { Button } from "../components/Shared/Button";
 import { useTasks } from "../context/TaskContext";
 import { RootStackParamList } from "../../App";
 
